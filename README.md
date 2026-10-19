@@ -6,13 +6,12 @@
 <p>
   <a href="https://blok.storagebits.workers.dev"><img src="https://img.shields.io/badge/blog-blok-E89E5C?style=flat-square&labelColor=0E0D0B" alt="Blog: blok"></a>
   <a href="https://github.com/algotitanhq"><img src="https://img.shields.io/badge/agentic%20organization-ALGOTITAN-F2B35B?style=flat-square&labelColor=0E0D0B" alt="Agentic organization: ALGOTITAN"></a>
-  <a href="https://claude.com/claude-code"><img src="https://img.shields.io/badge/built%20with-Claude%20Code-6E8BC2?style=flat-square&labelColor=0E0D0B" alt="Built with Claude Code"></a>
   <img src="https://img.shields.io/badge/runs%20on-real%20hardware-F2EDE4?style=flat-square&labelColor=0E0D0B" alt="Runs on real hardware">
   <a href="https://x.com/storagebits"><img src="https://img.shields.io/badge/X-@storagebits-F2EDE4?style=flat-square&labelColor=0E0D0B" alt="X: @storagebits"></a>
 </p>
 
-Firmware, TV apps, embedded kernels and a homelab, built with AI agents and tested on the real device.
-Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.com/algotitanhq)**; its public repos sit next to mine below.
+More ideas than nights. I invent things for the pleasure of seeing them run: a firmware for a forgotten watch, apps for the living-room TV,
+a kernel on a board nobody ported it to. To keep up with the ideas, I gave them a company of AI agents: **[ALGOTITAN](https://github.com/algotitanhq)**.
 
 <br>
 
@@ -22,12 +21,12 @@ Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.co
 </picture>
 
 | Project | What it is | Status |
-|---|---|---|
-| **[Kronograf](https://github.com/storagebits/kronograf)**<br><sub>ESP32 · C · LVGL</sub> | A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator. | [![release](https://img.shields.io/github/v/release/storagebits/kronograf?include_prereleases&style=flat-square&label=&color=E89E5C&labelColor=0E0D0B)](https://github.com/storagebits/kronograf/releases) |
-| **[Almanak](https://github.com/algotitanhq/almanak)**<br><sub>Android TV · Kotlin · Compose</sub> | An ambient almanac for Android TV, made to be left on: time, weather, the next bus in real time, sun and moon, a generative sky. Open data, no account. | [![CI](https://img.shields.io/github/actions/workflow/status/algotitanhq/almanak/ci.yml?style=flat-square&label=CI&labelColor=0E0D0B)](https://github.com/algotitanhq/almanak/actions/workflows/ci.yml) |
-| **[Humility](https://github.com/storagebits/humility)**<br><sub>Rust · STM32</sub> | Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/). | ![fork](https://img.shields.io/badge/fork-F2EDE4?style=flat-square) |
-| **[lukarne-catalog](https://github.com/storagebits/lukarne-catalog)**<br><sub>Data · daily job</sub> | The live-webcam catalogue behind Lukarne, an Android TV globe of webcams (the app is still on the bench). Regenerated every day. | ![generated](https://img.shields.io/badge/data-daily-F2B35B?style=flat-square&labelColor=0E0D0B) |
-| **[KISSS](https://github.com/storagebits/KISSS)**<br><sub>Python · Shell</sub> | *Keep It Simple Slide Scanner*: a DIY rig to digitise old film slides. | ![stars](https://img.shields.io/github/stars/storagebits/KISSS?style=flat-square&color=F2EDE4&labelColor=0E0D0B) |
+|---|---|:---:|
+| **[Kronograf](https://github.com/storagebits/kronograf)**<br><sub>ESP32 · C · LVGL</sub> | A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator. | <picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-kronograf-dark.svg"><img src="assets/status-kronograf-light.svg" width="150" alt="Beta release"></picture> |
+| **[Almanak](https://github.com/algotitanhq/almanak)**<br><sub>Android TV · Kotlin · Compose</sub> | An ambient almanac for Android TV, made to be left on: time, weather, the next bus in real time, sun and moon, a generative sky. Open data, no account. | <picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-almanak-dark.svg"><img src="assets/status-almanak-light.svg" width="150" alt="CI status"></picture> |
+| **[Humility](https://github.com/storagebits/humility)**<br><sub>Rust · STM32</sub> | Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/). | <picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-humility-dark.svg"><img src="assets/status-humility-light.svg" width="150" alt="Fork of Oxide"></picture> |
+| **[lukarne-catalog](https://github.com/storagebits/lukarne-catalog)**<br><sub>Data · daily job</sub> | The live-webcam catalogue behind Lukarne, an Android TV globe of webcams (the app is still on the bench). Regenerated every day. | <picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-lukarne-catalog-dark.svg"><img src="assets/status-lukarne-catalog-light.svg" width="150" alt="Daily data"></picture> |
+| **[KISSS](https://github.com/storagebits/KISSS)**<br><sub>Python · Shell</sub> | *Keep It Simple Slide Scanner*: a DIY rig to digitise old film slides. | <picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-kisss-dark.svg"><img src="assets/status-kisss-light.svg" width="150" alt="DIY hardware"></picture> |
 
 <details>
 <summary><b>Earlier work</b></summary>

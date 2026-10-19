@@ -165,19 +165,19 @@ def globe(svg, t, cx, cy, r, rnd, lat0=24, lon0=-38):
 
 def hero(theme, now, st):
     w, h = 1200, 540; t = THEMES[theme]
-    svg = Svg(w, h, theme, f"storagebits@workshop: hardware, kernel, homelab, agentic stack, languages and today's moon. {MOTTO[0]}")
+    svg = Svg(w, h, theme, f"storagebits@algotitanhq: hardware, kernel, homelab, agentic stack, languages and today's moon. {MOTTO[0]}")
     rnd = random.Random(now.date().toordinal())
     svg.add(f'<rect width="{w}" height="{h}" rx="14" fill="{t["bg"]}"/>')
     svg.add(f'<rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="14" fill="none" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
     svg.add(f'<line x1="0" y1="44" x2="{w}" y2="44" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
     for i, c in enumerate((t["accent"], t["light"], t["rim"])):
         svg.add(f'<circle cx="{26 + i * 20}" cy="22" r="5.5" fill="{c}" fill-opacity=".85"/>')
-    svg.text(w / 2, 27, "storagebits@workshop: ~ — neofetch", "Mono", 13, opacity=t["faint"], anchor="middle")
+    svg.text(w / 2, 27, "storagebits@algotitanhq: ~ — neofetch", "Mono", 13, opacity=t["faint"], anchor="middle")
     stars(svg, rnd, 40, (12, 52, 440, h - 12), t)
     globe(svg, t, 240, 292, 170, rnd)
     x, y, lh, kw = 500, 96, 29, 112
     svg.text(x, y, "storagebits", "MonoMedium", 26, t["accent"])
-    svg.text(x + width("MonoMedium", 26, "storagebits"), y, "@workshop", "MonoMedium", 26)
+    svg.text(x + width("MonoMedium", 26, "storagebits"), y, "@algotitanhq", "MonoMedium", 26)
     svg.text(x, y + 22, "─" * 44, "Mono", 15, opacity=t["faint"])
     age, k, name, full = moon(now)
     rows = [
@@ -187,8 +187,8 @@ def hero(theme, now, st):
         ("display", "240×240 ST7789 · LVGL 8 · 4 MB PSRAM"),
         ("homelab", "Incus containers behind Pangolin"),
         ("forge", "throwaway VMs, CI on every push"),
-        ("terminal", "Ghostty · tmux · mosh"),
-        ("agentic", "Claude Code · Paperclip · Hermes · agency-agents"),
+        ("terminal", "Ghostty · herdr · Rex · mosh"),
+        ("agentic", "Paperclip · Hermes · agency-agents"),
         ("moon", f"{name.lower()} · {round(k * 100)}% lit"),
         ("motto", MOTTO[0]),
     ]
@@ -258,7 +258,7 @@ STACK = [  # grows with the projects
     ("EMBEDDED", ["C on ESP32, LVGL", "Rust on STM32, Hubris", "BLE, IR, I²C sensors"]),
     ("APPS", ["Kotlin, Compose for TV", "OpenGL ES on Android", "Expo, React Native"]),
     ("INFRA", ["Incus, Docker, Pangolin", "Go, Python, Terraform", "Actions, Cloudflare"]),
-    ("AGENTIC", ["Claude Code, Opus", "Paperclip, Hermes", "agency-agents personas"]),
+    ("AGENTIC", ["Paperclip, Hermes", "agency-agents personas", "herdr as the cockpit"]),
 ]
 
 def stack(theme):
@@ -270,6 +270,30 @@ def stack(theme):
             assert width("Instrument", 23, s) < 285, s
             svg.text(x, 60 + j * 32, s, "Instrument", 23, opacity=1 if j == 0 else t["muted"])
     return svg.render()
+
+
+def chip(theme, text, live):
+    """A status pill in the profile's palette, fixed size so the table column lines up."""
+    w, h = 150, 28; t = THEMES[theme]; svg = Svg(w, h, theme, text)
+    svg.add(f'<rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="14" fill="{t["card"]}" stroke="{t["fg"]}" stroke-opacity="{t["line"]*1.5:.2f}"/>')
+    tw = width("InterMedium", 11, text, .12) + 15
+    x0 = (w - tw) / 2
+    svg.add(f'<circle cx="{x0 + 3.5}" cy="14" r="3.5" fill="{t["light"] if live else t["fg"]}" fill-opacity="{1 if live else .35}"/>')
+    svg.text(x0 + 15, 18, text, "InterMedium", 11, opacity=.9, tracking=.12)
+    return svg.render()
+
+
+def chips():
+    out = {"humility": ("FORK OF OXIDE", False), "lukarne-catalog": ("DAILY DATA", True), "kisss": ("DIY HARDWARE", False)}
+    try:
+        rel = gh("/repos/storagebits/kronograf/releases?per_page=1")
+        out["kronograf"] = (f"BETA {rel[0]['tag_name'].removeprefix('v').split('-')[0]}" if rel else "IN PROGRESS", True)
+    except Exception: out["kronograf"] = ("BETA", True)
+    try:
+        run = gh("/repos/algotitanhq/almanak/actions/runs?branch=main&status=completed&per_page=1")["workflow_runs"][0]
+        out["almanak"] = ("CI PASSING" if run["conclusion"] == "success" else "CI FAILING", run["conclusion"] == "success")
+    except Exception: out["almanak"] = ("OPEN SOURCE", True)
+    return out
 
 
 def gh(path):
@@ -324,12 +348,13 @@ def fill(txt, name, fn):
 def main():
     now = dt.datetime.now(TZ)
     OUT.mkdir(exist_ok=True)
-    st = stats(now)
+    st, ch = stats(now), chips()
     for theme in THEMES:
         (OUT / f"hero-{theme}.svg").write_text(hero(theme, now, st))
+        for key, (text, live) in ch.items(): (OUT / f"status-{key}-{theme}.svg").write_text(chip(theme, text, live))
         if "--daily" in sys.argv: continue
         for key, args in {"repos": ("01", "REPOSITORIES", "code that runs on real hardware"),
-                          "stack": ("02", "STACK", "what I reach for"),
+                          "stack": ("02", "STACK", "some of the bits I use"),
                           "lately": ("03", "LATELY", "latest commits, refreshed every morning")}.items():
             (OUT / f"section-{key}-{theme}.svg").write_text(section(theme, *args))
         (OUT / f"stack-{theme}.svg").write_text(stack(theme))
