@@ -1,19 +1,16 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
-  <img src="assets/hero-light.svg" width="100%" alt="François Lesage, storagebits, Montréal. I build at night, with AI agents, on real hardware. Today's moon and Montréal's sunrise and sunset, regenerated every morning.">
+  <img src="assets/hero-light.svg" width="100%" alt="storagebits@workshop: public repos, commits in the last 30 days, languages, latest release and today's moon, regenerated every morning. Create. Share. Explore. Love.">
 </picture>
 
 <p>
   <a href="https://blok.storagebits.workers.dev"><img src="https://img.shields.io/badge/blog-blok-E89E5C?style=flat-square&labelColor=0E0D0B" alt="Blog: blok"></a>
-  <a href="https://github.com/algotitanhq"><img src="https://img.shields.io/badge/company-ALGOTITAN-F2B35B?style=flat-square&labelColor=0E0D0B" alt="ALGOTITAN on GitHub"></a>
+  <a href="https://github.com/algotitanhq"><img src="https://img.shields.io/badge/agents-ALGOTITAN-F2B35B?style=flat-square&labelColor=0E0D0B" alt="ALGOTITAN on GitHub"></a>
   <a href="https://x.com/storagebits"><img src="https://img.shields.io/badge/X-@storagebits-F2EDE4?style=flat-square&labelColor=0E0D0B" alt="X: @storagebits"></a>
 </p>
 
 Firmware, TV apps, embedded kernels and a homelab, built with AI agents and tested on the real device.
 Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.com/algotitanhq)**; its public repos sit next to mine below.
-
-> [!NOTE]
-> Every project here is built with AI agents, and its README says so. I set the direction, test on the hardware and approve what ships; the agents write most of the code.
 
 <br>
 
@@ -29,15 +26,6 @@ Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.co
 | **[Humility](https://github.com/storagebits/humility)**<br><sub>Rust · STM32</sub> | Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/). | ![fork](https://img.shields.io/badge/fork-oxidecomputer-F2EDE4?style=flat-square&labelColor=0E0D0B) |
 | **[lukarne-catalog](https://github.com/storagebits/lukarne-catalog)**<br><sub>Data · daily job</sub> | The live-webcam catalogue behind Lukarne, an Android TV globe of webcams (the app is still on the bench). Regenerated every day. | ![generated](https://img.shields.io/badge/data-daily-F2B35B?style=flat-square&labelColor=0E0D0B) |
 | **[KISSS](https://github.com/storagebits/KISSS)**<br><sub>Python · Shell</sub> | *Keep It Simple Slide Scanner*: a DIY rig to digitise old film slides. | ![stars](https://img.shields.io/github/stars/storagebits/KISSS?style=flat-square&color=F2EDE4&labelColor=0E0D0B) |
-
-<details>
-<summary><b>See Kronograf and Almanak run</b></summary>
-<br>
-<p>
-  <img src="https://github.com/storagebits/kronograf/raw/main/docs/screens/kronograf-demo.gif" height="300" alt="Kronograf on the T-Watch: aviator face, time circuits, launcher, weather, an iPhone notification, the network toolbox">
-  <img src="https://github.com/algotitanhq/almanak/raw/main/docs/screens/almanak-demo.gif" height="300" alt="Almanak on Android TV: the Nocturne theme, the forecast, then the three themes cycled live">
-</p>
-</details>
 
 <details>
 <summary><b>Earlier work</b></summary>
@@ -88,5 +76,5 @@ Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.co
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/footer-dark.svg">
-  <img src="assets/footer-light.svg" width="100%" alt="Créer. Transmettre. Explorer. Aimer. — et pas forcément dans cet ordre.">
+  <img src="assets/footer-light.svg" width="100%" alt="Create. Share. Explore. Love. — not necessarily in that order.">
 </picture>

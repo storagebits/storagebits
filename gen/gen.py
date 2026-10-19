@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generates the profile's SVG artwork (dark = Almanak Nocturne, light = Almanak Paper) and the latest-posts block.
 
-Run daily by .github/workflows/daily.yml: the hero carries today's moon and Montréal's sun.
+Run daily by .github/workflows/daily.yml: the hero carries real repo numbers and today's moon.
 Fonts are subset per SVG and embedded, because GitHub serves SVGs as images (no external loads).
 Requires fonttools and brotli.
 """
@@ -14,8 +14,8 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent.parent
-FONTS, SRC, OUT = ROOT / "gen/fonts", ROOT / "gen/src", ROOT / "assets"
-TZ, LAT, LON = ZoneInfo("America/Montreal"), 45.5017, -73.5673
+FONTS, OUT = ROOT / "gen/fonts", ROOT / "assets"
+TZ = ZoneInfo("America/Montreal")
 FEED = "https://blok.storagebits.workers.dev/atom.xml"
 
 THEMES = {
@@ -27,6 +27,7 @@ THEMES = {
 FACES = {  # css family -> file
     "Fraunces": "fraunces-300.ttf", "FrauncesBook": "fraunces-400.ttf", "Inter": "inter-400.ttf",
     "InterMedium": "inter-500.ttf", "Instrument": "instrument-serif.ttf", "InstrumentItalic": "instrument-serif-italic.ttf",
+    "Mono": "mono-400.ttf", "MonoMedium": "mono-500.ttf",
 }
 _ttf = {k: TTFont(FONTS / v) for k, v in FACES.items()}
 
@@ -66,10 +67,6 @@ class Svg:
                 + "".join(self.parts) + "</svg>")
 
 
-def img(path):
-    return "data:image/jpeg;base64," + base64.b64encode(path.read_bytes()).decode()
-
-
 # ---------- sky facts ----------
 
 SYNODIC = 29.530588853
@@ -103,23 +100,6 @@ def next_full(jd):
         n += 1
 
 
-def sun(day, rising):
-    """NOAA sunrise equation, local time in Montréal (None when the sun does not rise or set)."""
-    n = day.timetuple().tm_yday; lng = LON / 15
-    t = n + ((6 if rising else 18) - lng) / 24
-    m = 0.9856 * t - 3.289
-    l = (m + 1.916 * math.sin(math.radians(m)) + 0.020 * math.sin(math.radians(2 * m)) + 282.634) % 360
-    ra = math.degrees(math.atan(0.91764 * math.tan(math.radians(l)))) % 360
-    ra = (ra + (l // 90) * 90 - (ra // 90) * 90) / 15
-    sd = 0.39782 * math.sin(math.radians(l)); cd = math.cos(math.asin(sd))
-    ch = (math.cos(math.radians(90.833)) - sd * math.sin(math.radians(LAT))) / (cd * math.cos(math.radians(LAT)))
-    if not -1 <= ch <= 1: return None
-    h = (360 - math.degrees(math.acos(ch)) if rising else math.degrees(math.acos(ch))) / 15
-    ut = (h + ra - 0.06571 * t - 6.622 - lng) % 24
-    base = dt.datetime(day.year, day.month, day.day, tzinfo=dt.timezone.utc)
-    return (base + dt.timedelta(hours=ut)).astimezone(TZ)
-
-
 def moon_path(cx, cy, r, age, k):
     rx = r * abs(1 - 2 * k)
     if age < SYNODIC / 2:  # waxing: right side lit
@@ -137,56 +117,112 @@ def stars(svg, rnd, n, box, t):
         svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{t["fg"]}" fill-opacity="{op:.2f}"{cls}/>')
 
 
-def horizon(svg, rnd, w, h, top, t, lights=46):
-    """Lukarne's night earth: a dark globe rising at the bottom, rimmed, dotted with warm city lights."""
-    r = 2400; cx, cy = w * 0.55, top + r
-    svg.add(f'<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{t["ground"]}"/>'
-            f'<stop offset="1" stop-color="{t["bg"]}"/></linearGradient></defs>')
-    svg.add(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="url(#gr)"/>')
-    svg.add(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{t["rim"]}" stroke-opacity=".35" stroke-width="1"/>')
-    svg.css.append("@keyframes pl{0%,100%{opacity:.35}50%{opacity:1}}.pl{animation:pl 5s ease-in-out infinite}")
-    for i in range(lights):
-        a = rnd.uniform(-0.36, 0.42); d = rnd.uniform(6, 70)
-        x = cx + (r - d) * math.sin(a); y = cy - (r - d) * math.cos(a)
-        if y > h - 2 or x < 4 or x > w - 4: continue
-        big = rnd.random() < .18
-        cls = f' class="pl" style="animation-delay:-{rnd.uniform(0, 5):.1f}s"' if big or i % 5 == 0 else ""
-        if big: svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="{t["light"]}" fill-opacity=".18"{cls}/>')
-        svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{2 if big else 1.3}" fill="{t["hot"] if big else t["light"]}"{cls}/>')
-
-
 # ---------- pieces ----------
 
-def hero(theme, now):
-    w, h = 1200, 440; t = THEMES[theme]; svg = Svg(w, h, theme, "François Lesage, storagebits: I build at night, with AI agents, on real hardware.")
+MOTTO = ("Create. Share. Explore. Love.", "NOT NECESSARILY IN THAT ORDER")
+LIGHTS = [(45.5, -73.6), (50.7, 3.2), (41.4, 2.2), (-23.5, -46.6), (40.7, -74.0), (48.9, 2.4), (51.5, -0.1), (37.8, -122.4),
+          (-22.9, -43.2), (52.5, 13.4), (19.4, -99.1), (64.1, -21.9), (38.7, -9.1), (14.7, -17.4), (33.6, -7.6)]
+SKIP_LANGS = {"HTML", "CSS", "CMake", "Makefile", "Dockerfile", "Batchfile", "Procfile", "Jupyter Notebook"}
+
+
+def stats(now):
+    """Real numbers for the hero, from the public repos of storagebits and algotitanhq."""
+    repos = gh("/users/storagebits/repos?type=owner&per_page=100") + gh("/orgs/algotitanhq/repos?type=public&per_page=100")
+    repos = [r for r in repos if not r["private"] and not r["fork"] and not r["archived"] and r["name"] != "storagebits"]
+    since = (now - dt.timedelta(days=30)).astimezone(dt.timezone.utc)
+    commits, langs, release = 0, {}, None
+    for r in repos:
+        for k, v in gh(f"/repos/{r['full_name']}/languages").items():
+            if k not in SKIP_LANGS: langs[k] = langs.get(k, 0) + v
+        if dt.datetime.fromisoformat(r["pushed_at"].replace("Z", "+00:00")) > since:
+            for page in (1, 2, 3):
+                got = gh(f"/repos/{r['full_name']}/commits?since={since:%Y-%m-%dT%H:%M:%SZ}&per_page=100&page={page}")
+                commits += len(got)
+                if len(got) < 100: break
+    for r in sorted(repos, key=lambda r: r["pushed_at"], reverse=True):
+        rel = gh(f"/repos/{r['full_name']}/releases?per_page=1")
+        if rel: release = f"{r['name']} {rel[0]['tag_name']}"; break
+    total = sum(langs.values()) or 1
+    top = sorted(langs.items(), key=lambda kv: -kv[1])[:6]
+    return dict(repos=len(repos), commits=commits, release=release, langs=[(k, v / total) for k, v in top])
+
+
+def globe(svg, t, cx, cy, r, rnd, lat0=24, lon0=-38):
+    """Lukarne's night globe as a dot grid, with warm city lights."""
+    def proj(lat, lon):
+        la, lo, l0 = math.radians(lat), math.radians(lon - lon0), math.radians(lat0)
+        cosc = math.sin(l0) * math.sin(la) + math.cos(l0) * math.cos(la) * math.cos(lo)
+        x = cx + r * math.cos(la) * math.sin(lo)
+        y = cy - r * (math.cos(l0) * math.sin(la) - math.sin(l0) * math.cos(la) * math.cos(lo))
+        return x, y, cosc
+    svg.add(f'<defs><radialGradient id="gl" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="{t["rim"]}" stop-opacity=".22"/>'
+            f'<stop offset="1" stop-color="{t["ground"]}" stop-opacity=".9"/></radialGradient></defs>')
+    svg.add(f'<circle cx="{cx}" cy="{cy}" r="{r + 16}" fill="{t["rim"]}" fill-opacity=".05"/>')
+    svg.add(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="url(#gl)" stroke="{t["rim"]}" stroke-opacity=".45"/>')
+    for lat in range(-75, 90, 9):
+        step = max(6, int(9 / max(math.cos(math.radians(lat)), .2)))
+        for lon in range(-180, 180, step):
+            x, y, c = proj(lat, lon)
+            if c > 0: svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{.6 + .9 * c:.2f}" fill="{t["fg"]}" fill-opacity="{.08 + .32 * c:.2f}"/>')
+    svg.css.append("@keyframes pl{0%,100%{opacity:.35}50%{opacity:1}}.pl{animation:pl 4.5s ease-in-out infinite}")
+    for lat, lon in LIGHTS:
+        x, y, c = proj(lat, lon)
+        if c <= 0.05: continue
+        d = f"-{rnd.uniform(0, 4.5):.1f}s"
+        svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7" fill="{t["light"]}" fill-opacity=".16" class="pl" style="animation-delay:{d}"/>')
+        svg.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.3" fill="{t["hot"]}" class="pl" style="animation-delay:{d}"/>')
+
+
+def hero(theme, now, st):
+    w, h = 1200, 460; t = THEMES[theme]
+    svg = Svg(w, h, theme, f"storagebits: {st['repos']} public repos, {st['commits']} commits in the last 30 days. {MOTTO[0]}")
     rnd = random.Random(now.date().toordinal())
-    svg.add(f'<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{t["sky"]}"/>'
-            f'<stop offset="1" stop-color="{t["bg"]}"/></linearGradient></defs><rect width="{w}" height="{h}" rx="18" fill="url(#sk)"/>')
-    stars(svg, rnd, 90, (12, 12, w - 12, 330), t)
-    horizon(svg, rnd, w, h, 368, t)
-    x = 64
-    svg.text(x, 92, "STORAGEBITS  ·  MONTRÉAL", "InterMedium", 13, t["accent"], tracking=.2)
-    svg.text(x - 3, 176, "François Lesage", "Fraunces", 78, tracking=-.02)
-    svg.text(x, 226, "I build at night, with AI agents, on real hardware.", "InstrumentItalic", 31, opacity=t["muted"])
-    svg.text(x, 270, "Founder of ALGOTITAN, a small company of agents.", "Inter", 16, opacity=t["faint"])
-    svg.text(x, 294, "Twenty years of systems, storage and cloud before that.", "Inter", 16, opacity=t["faint"])
-    # almanac column
-    svg.add(f'<line x1="806" y1="70" x2="806" y2="320" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
-    cx = 842
+    svg.add(f'<rect width="{w}" height="{h}" rx="14" fill="{t["bg"]}"/>')
+    svg.add(f'<rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="14" fill="none" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
+    svg.add(f'<line x1="0" y1="44" x2="{w}" y2="44" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
+    for i, c in enumerate((t["accent"], t["light"], t["rim"])):
+        svg.add(f'<circle cx="{26 + i * 20}" cy="22" r="5.5" fill="{c}" fill-opacity=".85"/>')
+    svg.text(w / 2, 27, "storagebits@workshop: ~ — neofetch", "Mono", 13, opacity=t["faint"], anchor="middle")
+    stars(svg, rnd, 40, (12, 52, 440, h - 12), t)
+    globe(svg, t, 240, 252, 160, rnd)
+    x, y, lh, kw = 500, 96, 29, 112
+    svg.text(x, y, "storagebits", "MonoMedium", 26, t["accent"])
+    svg.text(x + width("MonoMedium", 26, "storagebits"), y, "@workshop", "MonoMedium", 26)
+    svg.text(x, y + 22, "─" * 38, "Mono", 15, opacity=t["faint"])
     age, k, name, full = moon(now)
-    svg.text(cx, 92, now.strftime("%A %-d %B").upper(), "InterMedium", 13, opacity=t["muted"], tracking=.2)
-    mx, my, mr = cx + 34, 160, 34
-    svg.add(f'<circle cx="{mx}" cy="{my}" r="{mr+10}" fill="{t["hot"]}" fill-opacity=".06"/>')
-    svg.add(f'<circle cx="{mx}" cy="{my}" r="{mr}" fill="{t["fg"]}" fill-opacity=".07" stroke="{t["fg"]}" stroke-opacity=".15"/>')
-    svg.add(f'<path d="{moon_path(mx, my, mr, age, k)}" fill="{t["hot"] if theme == "dark" else t["fg"]}" fill-opacity="{.92 if theme == "dark" else .8}"/>')
-    svg.text(cx + 88, 154, name, "InstrumentItalic", 27)
-    svg.text(cx + 88, 180, f"{round(k*100)}% lit · full moon {full.strftime('%b %-d')}", "Inter", 14, opacity=t["muted"])
-    rise, sset = sun(now.date(), True), sun(now.date(), False)
-    if rise and sset:
-        day = sset - rise; hh, mm = divmod(round(day.total_seconds() / 60), 60)
-        svg.text(cx, 240, "SUN OVER MONTRÉAL", "InterMedium", 13, opacity=t["muted"], tracking=.2)
-        svg.text(cx - 2, 288, f"{rise:%-H:%M} → {sset:%-H:%M}", "Fraunces", 44, features="'tnum','lnum'")
-        svg.text(cx, 316, f"{hh} h {mm:02d} of daylight", "Inter", 14, opacity=t["muted"])
+    rows = [
+        ("role", "software engineer, builder"),
+        ("repos", f"{st['repos']} public · storagebits + algotitanhq"),
+        ("commits", f"{st['commits']} in the last 30 days"),
+        ("release", st["release"] or "none yet"),
+        ("hardware", "ESP32 · STM32 · Android TV · iPhone"),
+        ("agents", "ALGOTITAN, on Claude Code"),
+        ("moon", f"{name.lower()} · {round(k * 100)}% lit"),
+        ("motto", MOTTO[0]),
+    ]
+    yy = y + 58
+    for key, val in rows:
+        svg.text(x, yy, key, "MonoMedium", 17, t["accent"])
+        svg.text(x + kw, yy, val, "Mono", 17, opacity=.92 if key != "motto" else 1)
+        yy += lh
+    # language bar, like linguist
+    bx, by, bw = x, yy - 4, 640
+    shades = [t["accent"], t["light"], t["rim"], t["fg"], t["hot"], t["accent"]]
+    ops = [1, .9, .9, .55, .7, .45]
+    cur = bx
+    for (lang, frac), c, op in zip(st["langs"], shades, ops):
+        seg = bw * frac
+        svg.add(f'<rect x="{cur:.1f}" y="{by}" width="{max(seg - 2, 1):.1f}" height="7" rx="2" fill="{c}" fill-opacity="{op}"/>')
+        cur += seg
+    lx = bx
+    for (lang, frac), c, op in zip(st["langs"], shades, ops):
+        label = f"{lang} {frac * 100:.0f}%" if frac >= .005 else lang
+        svg.add(f'<circle cx="{lx + 4}" cy="{by + 25}" r="4" fill="{c}" fill-opacity="{op}"/>')
+        svg.text(lx + 13, by + 30, label, "Mono", 13, opacity=t["muted"])
+        lx += 13 + width("Mono", 13, label) + 20
+    svg.css.append("@keyframes bl{0%,49%{opacity:1}50%,100%{opacity:0}}.bl{animation:bl 1.1s step-end infinite}")
+    svg.text(x, h - 30, "$", "MonoMedium", 17, t["accent"])
+    svg.add(f'<rect x="{x + 18}" y="{h - 44}" width="10" height="18" fill="{t["fg"]}" class="bl"/>')
     return svg.render()
 
 
@@ -202,10 +238,10 @@ def section(theme, num, label, aside):
 
 
 def footer(theme):
-    w, h = 1200, 150; t = THEMES[theme]; svg = Svg(w, h, theme, "Créer. Transmettre. Explorer. Aimer. — et pas forcément dans cet ordre.")
-    stars(svg, random.Random(7), 26, (40, 10, w - 40, h - 10), t)
-    svg.text(w / 2, 74, "Créer. Transmettre. Explorer. Aimer.", "InstrumentItalic", 38, anchor="middle")
-    svg.text(w / 2, 108, "— ET PAS FORCÉMENT DANS CET ORDRE", "InterMedium", 12, opacity=t["faint"], tracking=.24, anchor="middle")
+    w, h = 1200, 170; t = THEMES[theme]; svg = Svg(w, h, theme, f"{MOTTO[0]} — {MOTTO[1].lower()}.")
+    stars(svg, random.Random(7), 30, (40, 10, w - 40, h - 10), t)
+    svg.text(w / 2, 84, MOTTO[0], "InstrumentItalic", 48, anchor="middle")
+    svg.text(w / 2, 122, "— " + MOTTO[1], "InterMedium", 13, opacity=t["faint"], tracking=.26, anchor="middle")
     return svg.render()
 
 
@@ -293,8 +329,9 @@ def fill(txt, name, fn):
 def main():
     now = dt.datetime.now(TZ)
     OUT.mkdir(exist_ok=True)
+    st = stats(now)
     for theme in THEMES:
-        (OUT / f"hero-{theme}.svg").write_text(hero(theme, now))
+        (OUT / f"hero-{theme}.svg").write_text(hero(theme, now, st))
         if "--daily" in sys.argv: continue
         for key, args in {"repos": ("01", "REPOSITORIES", "code that runs on real hardware"),
                           "stack": ("02", "STACK", "what I reach for"),
