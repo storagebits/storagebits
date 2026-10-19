@@ -11,7 +11,7 @@
 </p>
 
 More ideas than nights. I invent things for the pleasure of seeing them run: a firmware for a forgotten watch, apps for the living-room TV,
-a kernel on a board nobody ported it to. To keep up with the ideas, I gave them a company of AI agents: **[ALGOTITAN](https://github.com/algotitanhq)**.
+a kernel on a board nobody ported it to. To keep up with the ideas, I gave them an organization of AI agents: **[ALGOTITAN](https://github.com/algotitanhq)**.
 
 <br>
 
