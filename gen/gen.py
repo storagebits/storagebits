@@ -126,25 +126,15 @@ SKIP_LANGS = {"HTML", "CSS", "CMake", "Makefile", "Dockerfile", "Batchfile", "Pr
 
 
 def stats(now):
-    """Real numbers for the hero, from the public repos of storagebits and algotitanhq."""
+    """Language mix of the public repos of storagebits and algotitanhq, for the hero's linguist bar."""
     repos = gh("/users/storagebits/repos?type=owner&per_page=100") + gh("/orgs/algotitanhq/repos?type=public&per_page=100")
     repos = [r for r in repos if not r["private"] and not r["fork"] and not r["archived"] and r["name"] != "storagebits"]
-    since = (now - dt.timedelta(days=30)).astimezone(dt.timezone.utc)
-    commits, langs, release = 0, {}, None
+    langs = {}
     for r in repos:
         for k, v in gh(f"/repos/{r['full_name']}/languages").items():
             if k not in SKIP_LANGS: langs[k] = langs.get(k, 0) + v
-        if dt.datetime.fromisoformat(r["pushed_at"].replace("Z", "+00:00")) > since:
-            for page in (1, 2, 3):
-                got = gh(f"/repos/{r['full_name']}/commits?since={since:%Y-%m-%dT%H:%M:%SZ}&per_page=100&page={page}")
-                commits += len(got)
-                if len(got) < 100: break
-    for r in sorted(repos, key=lambda r: r["pushed_at"], reverse=True):
-        rel = gh(f"/repos/{r['full_name']}/releases?per_page=1")
-        if rel: release = f"{r['name']} {rel[0]['tag_name']}"; break
     total = sum(langs.values()) or 1
-    top = sorted(langs.items(), key=lambda kv: -kv[1])[:6]
-    return dict(repos=len(repos), commits=commits, release=release, langs=[(k, v / total) for k, v in top])
+    return dict(langs=[(k, v / total) for k, v in sorted(langs.items(), key=lambda kv: -kv[1])[:6]])
 
 
 def globe(svg, t, cx, cy, r, rnd, lat0=24, lon0=-38):
@@ -174,8 +164,8 @@ def globe(svg, t, cx, cy, r, rnd, lat0=24, lon0=-38):
 
 
 def hero(theme, now, st):
-    w, h = 1200, 460; t = THEMES[theme]
-    svg = Svg(w, h, theme, f"storagebits: {st['repos']} public repos, {st['commits']} commits in the last 30 days. {MOTTO[0]}")
+    w, h = 1200, 540; t = THEMES[theme]
+    svg = Svg(w, h, theme, f"storagebits@workshop: hardware, kernel, homelab, agentic stack, languages and today's moon. {MOTTO[0]}")
     rnd = random.Random(now.date().toordinal())
     svg.add(f'<rect width="{w}" height="{h}" rx="14" fill="{t["bg"]}"/>')
     svg.add(f'<rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="14" fill="none" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
@@ -184,19 +174,21 @@ def hero(theme, now, st):
         svg.add(f'<circle cx="{26 + i * 20}" cy="22" r="5.5" fill="{c}" fill-opacity=".85"/>')
     svg.text(w / 2, 27, "storagebits@workshop: ~ — neofetch", "Mono", 13, opacity=t["faint"], anchor="middle")
     stars(svg, rnd, 40, (12, 52, 440, h - 12), t)
-    globe(svg, t, 240, 252, 160, rnd)
+    globe(svg, t, 240, 292, 170, rnd)
     x, y, lh, kw = 500, 96, 29, 112
     svg.text(x, y, "storagebits", "MonoMedium", 26, t["accent"])
     svg.text(x + width("MonoMedium", 26, "storagebits"), y, "@workshop", "MonoMedium", 26)
-    svg.text(x, y + 22, "─" * 38, "Mono", 15, opacity=t["faint"])
+    svg.text(x, y + 22, "─" * 44, "Mono", 15, opacity=t["faint"])
     age, k, name, full = moon(now)
     rows = [
         ("role", "software engineer, builder"),
-        ("repos", f"{st['repos']} public · storagebits + algotitanhq"),
-        ("commits", f"{st['commits']} in the last 30 days"),
-        ("release", st["release"] or "none yet"),
         ("hardware", "ESP32 · STM32 · Android TV · iPhone"),
-        ("agents", "ALGOTITAN, on Claude Code"),
+        ("kernel", "Hubris on a Cortex-M4 at 100 MHz"),
+        ("display", "240×240 ST7789 · LVGL 8 · 4 MB PSRAM"),
+        ("homelab", "Incus containers behind Pangolin"),
+        ("forge", "throwaway VMs, CI on every push"),
+        ("terminal", "Ghostty · tmux · mosh"),
+        ("agentic", "Claude Code · Paperclip · Hermes · agency-agents"),
         ("moon", f"{name.lower()} · {round(k * 100)}% lit"),
         ("motto", MOTTO[0]),
     ]
@@ -262,20 +254,21 @@ def posts(n=3):
 
 
 
-STACK = [
-    ("EMBEDDED", ["C on ESP32 with LVGL", "Rust on STM32 (Hubris)", "BLE, IR, I²C sensors"]),
+STACK = [  # grows with the projects
+    ("EMBEDDED", ["C on ESP32, LVGL", "Rust on STM32, Hubris", "BLE, IR, I²C sensors"]),
     ("APPS", ["Kotlin, Compose for TV", "OpenGL ES on Android", "Expo, React Native"]),
-    ("INFRA", ["Incus, Docker, Pangolin", "Go, Python, Terraform", "GitHub Actions, Cloudflare"]),
+    ("INFRA", ["Incus, Docker, Pangolin", "Go, Python, Terraform", "Actions, Cloudflare"]),
+    ("AGENTIC", ["Claude Code, Opus", "Paperclip, Hermes", "agency-agents personas"]),
 ]
 
 def stack(theme):
     w, h = 1200, 150; t = THEMES[theme]; svg = Svg(w, h, theme, "Stack. " + ". ".join(f"{k}: {', '.join(v)}" for k, v in STACK))
     for i, (label, lines) in enumerate(STACK):
-        x = i * 410
+        x = i * 305
         svg.text(x, 22, label, "InterMedium", 12, t["accent"], tracking=.22)
         for j, s in enumerate(lines):
-            assert width("Instrument", 25, s) < 380, s
-            svg.text(x, 62 + j * 34, s, "Instrument", 25, opacity=1 if j == 0 else t["muted"])
+            assert width("Instrument", 23, s) < 285, s
+            svg.text(x, 60 + j * 32, s, "Instrument", 23, opacity=1 if j == 0 else t["muted"])
     return svg.render()
 
 
@@ -292,7 +285,7 @@ def ago(when, now):
     return "today" if d < 1 else "yesterday" if d < 2 else f"{d} days ago" if d < 30 else f"{d // 30} months ago"
 
 
-def activity(n=6, scan=14):
+def activity(n=6, scan=20):
     """Latest commits of the most recently pushed public repos, mine and ALGOTITAN's; identical messages are grouped."""
     repos = gh("/users/storagebits/repos?type=owner&sort=pushed&per_page=30") + gh("/orgs/algotitanhq/repos?type=public&sort=pushed&per_page=30")
     repos = [r for r in repos if not r["private"] and not r["fork"] and not r["archived"] and r["name"] != "storagebits"]
@@ -307,6 +300,8 @@ def activity(n=6, scan=14):
         when = dt.datetime.fromisoformat(c["commit"]["committer"]["date"].replace("Z", "+00:00"))
         groups.setdefault(msg, []).append((r, c, when))
     out = []
+    chore = re.compile(r"(?i)\b(readme|licen[cs]e|typo|chore|bump|merge branch)\b")
+    groups = {m: v for m, v in groups.items() if len(v) < 3 and not chore.search(m)}
     for msg, items in list(groups.items())[:n]:
         r, c, when = items[0]
         if len(items) == 1:

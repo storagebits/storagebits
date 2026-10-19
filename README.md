@@ -5,7 +5,9 @@
 
 <p>
   <a href="https://blok.storagebits.workers.dev"><img src="https://img.shields.io/badge/blog-blok-E89E5C?style=flat-square&labelColor=0E0D0B" alt="Blog: blok"></a>
-  <a href="https://github.com/algotitanhq"><img src="https://img.shields.io/badge/agents-ALGOTITAN-F2B35B?style=flat-square&labelColor=0E0D0B" alt="ALGOTITAN on GitHub"></a>
+  <a href="https://github.com/algotitanhq"><img src="https://img.shields.io/badge/agentic%20organization-ALGOTITAN-F2B35B?style=flat-square&labelColor=0E0D0B" alt="Agentic organization: ALGOTITAN"></a>
+  <a href="https://claude.com/claude-code"><img src="https://img.shields.io/badge/built%20with-Claude%20Code-6E8BC2?style=flat-square&labelColor=0E0D0B" alt="Built with Claude Code"></a>
+  <img src="https://img.shields.io/badge/runs%20on-real%20hardware-F2EDE4?style=flat-square&labelColor=0E0D0B" alt="Runs on real hardware">
   <a href="https://x.com/storagebits"><img src="https://img.shields.io/badge/X-@storagebits-F2EDE4?style=flat-square&labelColor=0E0D0B" alt="X: @storagebits"></a>
 </p>
 
@@ -21,9 +23,9 @@ Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.co
 
 | Project | What it is | Status |
 |---|---|---|
-| **[Kronograf](https://github.com/storagebits/kronograf)**<br><sub>ESP32 · C · LVGL</sub> | A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator. | [![CI](https://img.shields.io/github/actions/workflow/status/storagebits/kronograf/ci.yml?style=flat-square&label=CI&labelColor=0E0D0B)](https://github.com/storagebits/kronograf/actions/workflows/ci.yml)<br>[![release](https://img.shields.io/github/v/release/storagebits/kronograf?include_prereleases&style=flat-square&color=E89E5C&labelColor=0E0D0B)](https://github.com/storagebits/kronograf/releases) |
-| **[Almanak](https://github.com/algotitanhq/almanak)**<br><sub>Android TV · Kotlin · Compose</sub> | An ambient almanac for Android TV, made to be left on: time, weather, the next bus in real time, sun and moon, a generative sky. Open data, no account. | [![CI](https://img.shields.io/github/actions/workflow/status/algotitanhq/almanak/ci.yml?style=flat-square&label=CI&labelColor=0E0D0B)](https://github.com/algotitanhq/almanak/actions/workflows/ci.yml)<br>![license](https://img.shields.io/badge/license-MIT-F2EDE4?style=flat-square&labelColor=0E0D0B) |
-| **[Humility](https://github.com/storagebits/humility)**<br><sub>Rust · STM32</sub> | Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/). | ![fork](https://img.shields.io/badge/fork-oxidecomputer-F2EDE4?style=flat-square&labelColor=0E0D0B) |
+| **[Kronograf](https://github.com/storagebits/kronograf)**<br><sub>ESP32 · C · LVGL</sub> | A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator. | [![release](https://img.shields.io/github/v/release/storagebits/kronograf?include_prereleases&style=flat-square&label=&color=E89E5C&labelColor=0E0D0B)](https://github.com/storagebits/kronograf/releases) |
+| **[Almanak](https://github.com/algotitanhq/almanak)**<br><sub>Android TV · Kotlin · Compose</sub> | An ambient almanac for Android TV, made to be left on: time, weather, the next bus in real time, sun and moon, a generative sky. Open data, no account. | [![CI](https://img.shields.io/github/actions/workflow/status/algotitanhq/almanak/ci.yml?style=flat-square&label=CI&labelColor=0E0D0B)](https://github.com/algotitanhq/almanak/actions/workflows/ci.yml) |
+| **[Humility](https://github.com/storagebits/humility)**<br><sub>Rust · STM32</sub> | Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/). | ![fork](https://img.shields.io/badge/fork-F2EDE4?style=flat-square) |
 | **[lukarne-catalog](https://github.com/storagebits/lukarne-catalog)**<br><sub>Data · daily job</sub> | The live-webcam catalogue behind Lukarne, an Android TV globe of webcams (the app is still on the bench). Regenerated every day. | ![generated](https://img.shields.io/badge/data-daily-F2B35B?style=flat-square&labelColor=0E0D0B) |
 | **[KISSS](https://github.com/storagebits/KISSS)**<br><sub>Python · Shell</sub> | *Keep It Simple Slide Scanner*: a DIY rig to digitise old film slides. | ![stars](https://img.shields.io/github/stars/storagebits/KISSS?style=flat-square&color=F2EDE4&labelColor=0E0D0B) |
 
@@ -60,7 +62,6 @@ Since October 2026 the agents work as a company, **[ALGOTITAN](https://github.co
 </picture>
 
 <!-- activity:start -->
-- README and MIT licence, in 7 repos: [`vectests`](https://github.com/storagebits/vectests), [`nasa-meteor-to-planetaryjs`](https://github.com/storagebits/nasa-meteor-to-planetaryjs), [`KISSS`](https://github.com/storagebits/KISSS), [`board-explorer-makecode`](https://github.com/storagebits/board-explorer-makecode), [`board-explorer`](https://github.com/storagebits/board-explorer), [`storagebits.github.io`](https://github.com/storagebits/storagebits.github.io), [`lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) <sub>today</sub>
 - [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Initial public import of Almanak](https://github.com/algotitanhq/almanak/commit/77c5d35687add036a5a34aea9dfc3a780f1e761d) <sub>today</sub>
 - [`storagebits/kronograf`](https://github.com/storagebits/kronograf) · [Toolbox: keep Wi-Fi modem sleep while Bluetooth is on (fixes reboots…](https://github.com/storagebits/kronograf/commit/3e82b01be65432e8db7f3a5c7230f1a6d87da451) <sub>4 days ago</sub>
 <!-- activity:end -->
