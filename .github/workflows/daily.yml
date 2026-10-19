@@ -1,0 +1,26 @@
+name: daily
+# Every morning in Montréal: today's moon and sun in the hero, latest blog posts in the README.
+on:
+  schedule:
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+  push:
+    paths: ["gen/**"]
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install fonttools==4.67.0 brotli
+      - run: python gen/gen.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A assets README.md
+          git diff --cached --quiet || { git commit -m "Daily render: $(TZ=America/Montreal date +%F)"; git push; }
