@@ -283,17 +283,70 @@ def chip(theme, text, live):
     return svg.render()
 
 
-def chips():
-    out = {"humility": ("FORK OF OXIDE", False), "lukarne-catalog": ("DAILY DATA", True), "kisss": ("DIY HARDWARE", False)}
+# Repositories table: the same rule as the showcase site (blok, scripts/projets.py): a public, non-archived repo of
+# storagebits or algotitanhq with the `showcase` topic is listed; made private, it drops out at the next render.
+# CURATED holds the hand-written text and thumbnail of known repos; any other showcased repo gets a row from its
+# GitHub description. Order: CURATED order, then the others by last push.
+SHOWCASE = "showcase"
+CURATED = {
+    "storagebits/kronograf": dict(title="Kronograf", sub="ESP32 · C · LVGL", thumb="kronograf.png",
+        alt="Kronograf aviator face on the T-Watch",
+        text="A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator."),
+    "algotitanhq/almanak": dict(title="Almanak", sub="Android TV · Kotlin · Compose", thumb="almanak.png",
+        alt="Almanak, Nocturne theme on the TV",
+        text="An ambient almanac for Android TV, made to be left on: time, weather, the next bus in real time, sun and moon, a generative sky. Open data, no account."),
+    "storagebits/humility": dict(title="Humility", sub="Rust · STM32", thumb="humility.png", chip=("FORK OF OXIDE", False),
+        alt="The NUCLEO-F412ZG board running Hubris",
+        text="Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/)."),
+    "storagebits/lukarne-catalog": dict(title="lukarne-catalog", sub="Data · daily job", thumb="lukarne-catalog.png", chip=("DAILY DATA", True),
+        alt="Lukarne's night globe of live webcams",
+        text="The live-webcam catalogue behind Lukarne, an Android TV globe of webcams (the app is still on the bench). Regenerated every day."),
+    "storagebits/KISSS": dict(title="KISSS", sub="Python · Shell", thumb="kisss.png", chip=("DIY HARDWARE", False),
+        alt="The KISSS slide scanner rig", text="*Keep It Simple Slide Scanner*: a DIY rig to digitise old film slides."),
+}
+
+
+def showcase():
+    repos = gh("/users/storagebits/repos?type=public&per_page=100") + gh("/orgs/algotitanhq/repos?type=public&per_page=100")
+    repos = [r for r in repos if not r["private"] and r.get("visibility") == "public" and not r["archived"]
+             and SHOWCASE in r.get("topics", [])]
+    order = list(CURATED)
+    repos.sort(key=lambda r: r["pushed_at"], reverse=True)
+    repos.sort(key=lambda r: order.index(r["full_name"]) if r["full_name"] in order else len(order))
+    return repos
+
+
+def chip_for(r):
+    """Status pill text: fixed for some curated repos, else latest release, else CI, else fork, else language."""
+    cur = CURATED.get(r["full_name"], {})
+    if "chip" in cur: return cur["chip"]
+    rel = [v for v in gh(f"/repos/{r['full_name']}/releases?per_page=5") if not v.get("draft")]
+    if rel:
+        ver = rel[0]["tag_name"].removeprefix("v")
+        return (f"BETA {ver.split('-')[0]}", True) if rel[0]["prerelease"] else (f"RELEASE {ver}", True)
     try:
-        rel = gh("/repos/storagebits/kronograf/releases?per_page=1")
-        out["kronograf"] = (f"BETA {rel[0]['tag_name'].removeprefix('v').split('-')[0]}" if rel else "IN PROGRESS", True)
-    except Exception: out["kronograf"] = ("BETA", True)
-    try:
-        run = gh("/repos/algotitanhq/almanak/actions/runs?branch=main&status=completed&per_page=1")["workflow_runs"][0]
-        out["almanak"] = ("CI PASSING" if run["conclusion"] == "success" else "CI FAILING", run["conclusion"] == "success")
-    except Exception: out["almanak"] = ("OPEN SOURCE", True)
-    return out
+        runs = gh(f"/repos/{r['full_name']}/actions/runs?branch={r['default_branch']}&status=completed&per_page=1")["workflow_runs"]
+    except Exception: runs = []
+    if runs: return ("CI PASSING", True) if runs[0]["conclusion"] == "success" else ("CI FAILING", False)
+    if r["fork"]: return ("FORK", False)
+    return ((r.get("language") or "OPEN SOURCE").upper(), False)
+
+
+def key_of(r): return r["name"].lower()
+
+
+def repos_table(repos, ch):
+    rows = ["| Project | What it is |", "|---|---|"]
+    for r in repos:
+        cur, k, url = CURATED.get(r["full_name"], {}), key_of(r), r["html_url"]
+        title = cur.get("title", r["name"])
+        sub = cur.get("sub") or " · ".join([x for x in [r.get("language")] + [t for t in r.get("topics", []) if t != SHOWCASE][:2] if x])
+        thumb = f'<a href="{url}"><img src="assets/thumbs/{cur["thumb"]}" width="160" alt="{cur["alt"].replace(chr(34), "&quot;")}"></a><br>' if cur.get("thumb") else ""
+        pill = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-{k}-dark.svg">'
+                f'<img src="assets/status-{k}-light.svg" width="140" alt="{ch.get(k, ("",))[0]}"></picture>')
+        text = cur.get("text") or html.escape(r.get("description") or "")
+        rows.append(f"|  {thumb}**[{title}]({url})**<br><sub>{sub}</sub><br>{pill}  | {text} |")
+    return "\n".join(rows)
 
 
 def gh(path):
@@ -348,7 +401,11 @@ def fill(txt, name, fn):
 def main():
     now = dt.datetime.now(TZ)
     OUT.mkdir(exist_ok=True)
-    st, ch = stats(now), chips()
+    st = stats(now)
+    try:  # the API being down keeps yesterday's table and pills
+        shown = showcase(); ch = {key_of(r): chip_for(r) for r in shown}
+    except Exception as e:
+        print("repos: skipped:", e, file=sys.stderr); shown, ch = None, {}
     for theme in THEMES:
         (OUT / f"hero-{theme}.svg").write_text(hero(theme, now, st))
         for key, (text, live) in ch.items(): (OUT / f"status-{key}-{theme}.svg").write_text(chip(theme, text, live))
@@ -360,7 +417,12 @@ def main():
         (OUT / f"stack-{theme}.svg").write_text(stack(theme))
         (OUT / f"footer-{theme}.svg").write_text(footer(theme))
     readme = ROOT / "README.md"
-    txt = fill(readme.read_text(), "activity", activity)
+    txt = readme.read_text()
+    if shown is not None:
+        txt = fill(txt, "repos", lambda: repos_table(shown, ch))
+        for f in OUT.glob("status-*.svg"):  # pills of repos no longer shown
+            if f.stem.removeprefix("status-").rsplit("-", 1)[0] not in ch: f.unlink()
+    txt = fill(txt, "activity", activity)
     txt = fill(txt, "posts", lambda: posts(2))
     readme.write_text(txt)
 
