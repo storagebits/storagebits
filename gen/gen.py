@@ -201,58 +201,6 @@ def section(theme, num, label, aside):
     return svg.render()
 
 
-def card(theme, c):
-    w, h, ih = 580, 404, 252; t = THEMES[theme]; svg = Svg(w, h, theme, f"{c['name']}: {c['line']}")
-    pic = SRC / (c.get("img_" + theme) or c["img"])
-    svg.add(f'<defs><clipPath id="c"><rect width="{w}" height="{h}" rx="16"/></clipPath>'
-            f'<linearGradient id="fd" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#000" stop-opacity="0"/>'
-            f'<stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient></defs>')
-    svg.add(f'<g clip-path="url(#c)"><rect width="{w}" height="{h}" fill="{t["card"]}"/>'
-            f'<image href="{img(pic)}" x="0" y="0" width="{w}" height="{ih}" preserveAspectRatio="{c.get("align", "xMidYMid")} slice"/>'
-            f'<rect width="{w}" height="{ih}" fill="url(#fd)"/></g>')
-    svg.add(f'<rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="16" fill="none" stroke="{t["fg"]}" stroke-opacity="{t["line"]}"/>')
-    chip = c["status"]; cw = width("InterMedium", 11, chip, .16) + 26
-    svg.add(f'<rect x="18" y="18" width="{cw:.0f}" height="26" rx="13" fill="#0E0D0B" fill-opacity=".72"/>')
-    dot = "#F2B35B" if c.get("live") else "#8A8F99"
-    svg.add(f'<circle cx="31" cy="31" r="3.2" fill="{dot}"/>')
-    svg.text(40, 35, chip, "InterMedium", 11, "#F2EDE4", tracking=.16)
-    svg.text(28, ih + 38, c["kind"], "InterMedium", 12, t["accent"], tracking=.2)
-    svg.text(26, ih + 86, c["name"], "Fraunces", 44, tracking=-.02)
-    svg.text(28, ih + 122, c["line"], "InstrumentItalic", 23, opacity=t["muted"])
-    svg.text(w - 28, ih + 86, "→", "Inter", 26, t["accent"], anchor="end")
-    assert width("InstrumentItalic", 23, c["line"]) < w - 56, c["line"]
-    return svg.render()
-
-
-STEPS = [
-    ("01", "Idea", ["A north star and a few", "decisions. Mine."]),
-    ("02", "ALGOTITAN", ["Agents run as a company", "in Paperclip, with budgets."]),
-    ("03", "Forge", ["Claude Code builds and", "tests in throwaway VMs."]),
-    ("04", "Gate", ["Nothing goes public", "without my approval."]),
-    ("05", "Shipped", ["A repo, a release, and", "a post on the blog."]),
-]
-
-def workshop(theme):
-    w, h = 1200, 250; t = THEMES[theme]; svg = Svg(w, h, theme, "How it is made: idea, ALGOTITAN, forge, gate, shipped.")
-    xs = [0 + i * 246 for i in range(5)]; ly = 40
-    svg.add(f'<path id="flow" d="M8,{ly} H{xs[-1]+8}" stroke="{t["fg"]}" stroke-opacity="{t["line"]*1.6:.2f}" stroke-dasharray="2 6" fill="none"/>')
-    for d in (0, 2.6, 5.2):
-        svg.add(f'<circle r="2.6" fill="{t["light"]}"><animateMotion dur="7.8s" begin="-{d}s" repeatCount="indefinite" '
-                f'path="M8,{ly} H{xs[-1]+8}"/></circle>')
-    for x, (n, title, lines) in zip(xs, STEPS):
-        human = title in ("Idea", "Gate")
-        c = t["accent"] if human else t["fg"]
-        svg.add(f'<circle cx="{x+8}" cy="{ly}" r="8" fill="{t["bg"]}" stroke="{c}" stroke-width="1.5"/>')
-        if human: svg.add(f'<circle cx="{x+8}" cy="{ly}" r="3.5" fill="{c}"/>')
-        svg.text(x, ly + 50, n, "InterMedium", 12, t["accent"], tracking=.2)
-        svg.text(x - 1, ly + 92, title, "Fraunces", 34, tracking=-.02)
-        for i, s in enumerate(lines):
-            assert width("Inter", 15, s) < 232, s
-            svg.text(x, ly + 128 + i * 22, s, "Inter", 15, opacity=t["muted"])
-    svg.text(0, h - 6, "Accent marks where a human decides.", "InstrumentItalic", 19, opacity=t["faint"])
-    return svg.render()
-
-
 def footer(theme):
     w, h = 1200, 150; t = THEMES[theme]; svg = Svg(w, h, theme, "Créer. Transmettre. Explorer. Aimer. — et pas forcément dans cet ordre.")
     stars(svg, random.Random(7), 26, (40, 10, w - 40, h - 10), t)
@@ -260,17 +208,6 @@ def footer(theme):
     svg.text(w / 2, 108, "— ET PAS FORCÉMENT DANS CET ORDRE", "InterMedium", 12, opacity=t["faint"], tracking=.24, anchor="middle")
     return svg.render()
 
-
-CARDS = {
-    "kronograf": dict(name="Kronograf", kind="FIRMWARE  ·  ESP32  ·  C", status="SHIPPED  ·  v0.7 BETA", live=True, img="kronograf.jpg",
-                      line="A watch you want to raise your wrist for."),
-    "almanak": dict(name="Almanak", kind="ANDROID TV  ·  KOTLIN", status="SHIPPED  ·  OPEN SOURCE", live=True, img="almanak.jpg",
-                    img_light="almanak-paper.jpg", align="xMidYMin", line="An almanac for the TV, made to be left on."),
-    "hubris": dict(name="Hubris on F412", kind="EMBEDDED  ·  RUST", status="RUNS  ·  WRITE-UP", live=True, img="hubris.jpg",
-                   line="Oxide's kernel, on a board it never met."),
-    "lukarne": dict(name="Lukarne", kind="ANDROID TV  ·  OPENGL", status="ON THE BENCH", img="lukarne.jpg",
-                    line="Spin a globe, dive into live webcams."),
-}
 
 
 def posts(n=3):
@@ -288,27 +225,87 @@ def posts(n=3):
     return "\n".join(out)
 
 
+
+STACK = [
+    ("EMBEDDED", ["C on ESP32 with LVGL", "Rust on STM32 (Hubris)", "BLE, IR, I²C sensors"]),
+    ("APPS", ["Kotlin, Compose for TV", "OpenGL ES on Android", "Expo, React Native"]),
+    ("INFRA", ["Incus, Docker, Pangolin", "Go, Python, Terraform", "GitHub Actions, Cloudflare"]),
+]
+
+def stack(theme):
+    w, h = 1200, 150; t = THEMES[theme]; svg = Svg(w, h, theme, "Stack. " + ". ".join(f"{k}: {', '.join(v)}" for k, v in STACK))
+    for i, (label, lines) in enumerate(STACK):
+        x = i * 410
+        svg.text(x, 22, label, "InterMedium", 12, t["accent"], tracking=.22)
+        for j, s in enumerate(lines):
+            assert width("Instrument", 25, s) < 380, s
+            svg.text(x, 62 + j * 34, s, "Instrument", 25, opacity=1 if j == 0 else t["muted"])
+    return svg.render()
+
+
+def gh(path):
+    import json, os
+    hdr = {"Accept": "application/vnd.github+json", "User-Agent": "storagebits-profile/1.0"}
+    if os.environ.get("GITHUB_TOKEN"): hdr["Authorization"] = "Bearer " + os.environ["GITHUB_TOKEN"]
+    with urllib.request.urlopen(urllib.request.Request("https://api.github.com" + path, headers=hdr), timeout=20) as r:
+        return json.load(r)
+
+
+def ago(when, now):
+    d = (now - when).days
+    return "today" if d < 1 else "yesterday" if d < 2 else f"{d} days ago" if d < 30 else f"{d // 30} months ago"
+
+
+def activity(n=6, scan=14):
+    """Latest commits of the most recently pushed public repos, mine and ALGOTITAN's; identical messages are grouped."""
+    repos = gh("/users/storagebits/repos?type=owner&sort=pushed&per_page=30") + gh("/orgs/algotitanhq/repos?type=public&sort=pushed&per_page=30")
+    repos = [r for r in repos if not r["private"] and not r["fork"] and not r["archived"] and r["name"] != "storagebits"]
+    repos.sort(key=lambda r: r["pushed_at"], reverse=True)
+    now, groups = dt.datetime.now(dt.timezone.utc), {}
+    for r in repos[:scan]:
+        c = gh(f"/repos/{r['full_name']}/commits?per_page=1")[0]
+        msg = c["commit"]["message"].split("\n")[0].strip()
+        msg = re.sub(r"^(Merge (pull request )?#\d+\s*(\([A-Z]+-\d+\))?\s*:?\s*|[A-Z]+-\d+\s*:\s*)", "", msg).strip()
+        msg = msg[:1].upper() + msg[1:]
+        if len(msg) > 72: msg = msg[:msg.rfind(" ", 0, 70)] + "…"
+        when = dt.datetime.fromisoformat(c["commit"]["committer"]["date"].replace("Z", "+00:00"))
+        groups.setdefault(msg, []).append((r, c, when))
+    out = []
+    for msg, items in list(groups.items())[:n]:
+        r, c, when = items[0]
+        if len(items) == 1:
+            out.append(f"- [`{r['full_name']}`]({r['html_url']}) · [{html.escape(msg)}]({c['html_url']}) <sub>{ago(when, now)}</sub>")
+        else:
+            names = ", ".join(f"[`{x[0]['name']}`]({x[0]['html_url']})" for x in items)
+            out.append(f"- {html.escape(msg)}, in {len(items)} repos: {names} <sub>{ago(when, now)}</sub>")
+    return "\n".join(out)
+
+
+def fill(txt, name, fn):
+    try:
+        block = fn()
+        return re.sub(rf"(<!-- {name}:start -->).*?(<!-- {name}:end -->)", lambda m: f"{m[1]}\n{block}\n{m[2]}", txt, flags=re.S)
+    except Exception as e:  # a feed or the API being down must not break the hero
+        print(f"{name}: skipped:", e, file=sys.stderr)
+        return txt
+
+
 def main():
     now = dt.datetime.now(TZ)
     OUT.mkdir(exist_ok=True)
     for theme in THEMES:
         (OUT / f"hero-{theme}.svg").write_text(hero(theme, now))
         if "--daily" in sys.argv: continue
-        for key, c in CARDS.items(): (OUT / f"card-{key}-{theme}.svg").write_text(card(theme, c))
-        for key, args in {"work": ("01", "FROM THE WORKSHOP", "things that run on real hardware"),
-                          "notebook": ("02", "THE NOTEBOOK", "blok, in French, English and Spanish"),
-                          "made": ("03", "HOW IT IS MADE", "a company of agents, one human")}.items():
+        for key, args in {"repos": ("01", "REPOSITORIES", "code that runs on real hardware"),
+                          "stack": ("02", "STACK", "what I reach for"),
+                          "lately": ("03", "LATELY", "latest commits, refreshed every morning")}.items():
             (OUT / f"section-{key}-{theme}.svg").write_text(section(theme, *args))
-        (OUT / f"workshop-{theme}.svg").write_text(workshop(theme))
+        (OUT / f"stack-{theme}.svg").write_text(stack(theme))
         (OUT / f"footer-{theme}.svg").write_text(footer(theme))
     readme = ROOT / "README.md"
-    try:
-        block = posts()
-        txt = readme.read_text()
-        txt = re.sub(r"(<!-- posts:start -->).*?(<!-- posts:end -->)", lambda m: f"{m[1]}\n{block}\n{m[2]}", txt, flags=re.S)
-        readme.write_text(txt)
-    except Exception as e:  # the feed being down must not break the hero
-        print("posts: skipped:", e, file=sys.stderr)
+    txt = fill(readme.read_text(), "activity", activity)
+    txt = fill(txt, "posts", lambda: posts(2))
+    readme.write_text(txt)
 
 
 if __name__ == "__main__":
