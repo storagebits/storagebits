@@ -5,7 +5,7 @@ Run daily by .github/workflows/daily.yml: the hero carries real repo numbers and
 Fonts are subset per SVG and embedded, because GitHub serves SVGs as images (no external loads).
 Requires fonttools and brotli.
 """
-import base64, datetime as dt, html, io, math, random, re, sys, urllib.request
+import base64, datetime as dt, html, io, math, random, re, sys, urllib.parse, urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -289,19 +289,19 @@ def chip(theme, text, live):
 # GitHub description. Order: CURATED order, then the others by last push.
 SHOWCASE = "showcase"
 CURATED = {
-    "storagebits/kronograf": dict(title="Kronograf", sub="ESP32 · C · LVGL", thumb="kronograf.png",
+    "storagebits/kronograf": dict(icons=[("ESP32","espressif"),("C","c"),("LVGL",""),("PlatformIO","platformio"),("BLE","bluetooth")], title="Kronograf", sub="ESP32 · C · LVGL", thumb="kronograf.png",
         alt="Kronograf aviator face on the T-Watch",
         text="A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator."),
-    "algotitanhq/almanak": dict(title="Almanak", sub="Android TV · Kotlin · Compose", thumb="almanak.png",
+    "algotitanhq/almanak": dict(icons=[("Android TV","android"),("Kotlin","kotlin"),("Compose","jetpackcompose")], title="Almanak", sub="Android TV · Kotlin · Compose", thumb="almanak.png",
         alt="Almanak, Nocturne theme on the TV",
         text="An ambient almanac for Android TV, made to be left on: time, weather, the next bus in real time, sun and moon, a generative sky. Open data, no account."),
-    "storagebits/humility": dict(title="Humility", sub="Rust · STM32", thumb="humility.png", chip=("FORK OF OXIDE", False),
+    "storagebits/humility": dict(icons=[("Rust","rust"),("STM32","stmicroelectronics"),("Hubris","")], title="Humility", sub="Rust · STM32", thumb="humility.png", chip=("FORK OF OXIDE", False),
         alt="The NUCLEO-F412ZG board running Hubris",
         text="Fork of Oxide's Hubris debugger, used to bring Hubris up on a NUCLEO-F412ZG, a board it does not support. [The write-up](https://blok.storagebits.workers.dev/blog/hubris-f412/)."),
-    "storagebits/lukarne-catalog": dict(title="lukarne-catalog", sub="Data · daily job", thumb="lukarne-catalog.png", chip=("DAILY DATA", True),
+    "storagebits/lukarne-catalog": dict(icons=[("GitHub Actions","githubactions"),("JSON","json"),("YouTube","youtube")], title="lukarne-catalog", sub="Data · daily job", thumb="lukarne-catalog.png", chip=("DAILY DATA", True),
         alt="Lukarne's night globe of live webcams",
         text="The live-webcam catalogue behind Lukarne, an Android TV globe of webcams (the app is still on the bench). Regenerated every day."),
-    "storagebits/KISSS": dict(title="KISSS", sub="Python · Shell", thumb="kisss.png", chip=("DIY HARDWARE", False),
+    "storagebits/KISSS": dict(icons=[("Raspberry Pi","raspberrypi"),("Python","python"),("Bash","gnubash"),("Nextcloud","nextcloud")], title="KISSS", sub="Python · Shell", thumb="kisss.png", chip=("DIY HARDWARE", False),
         alt="The KISSS slide scanner rig", text="*Keep It Simple Slide Scanner*: a DIY rig to digitise old film slides."),
 }
 
@@ -335,17 +335,32 @@ def chip_for(r):
 def key_of(r): return r["name"].lower()
 
 
+LANG_ICON = {"C": "c", "C++": "cplusplus", "Kotlin": "kotlin", "Rust": "rust", "Python": "python", "Shell": "gnubash",
+             "TypeScript": "typescript", "JavaScript": "javascript", "Go": "go", "Astro": "astro", "Swift": "swift"}
+
+
+def badge(label, logo):
+    """A tech badge in the profile palette (shields.io, Simple Icons logo), like the badges under the hero."""
+    msg = urllib.parse.quote(label.replace("-", "--").replace("_", "__"))
+    lg = f"&logo={logo}&logoColor=F2EDE4" if logo else ""
+    return f'<img src="https://img.shields.io/badge/{msg}-16140F?style=flat-square{lg}" alt="{html.escape(label)}">'
+
+
 def repos_table(repos, ch):
-    rows = ["| Project | What it is |", "|---|---|"]
+    """Three columns: the project (thumbnail, name, status pill), what it is, then its stack as icons and its GitHub topics as tags."""
+    rows = ["| Project | What it is | Stack & topics |", "|---|---|---|"]
     for r in repos:
         cur, k, url = CURATED.get(r["full_name"], {}), key_of(r), r["html_url"]
         title = cur.get("title", r["name"])
-        sub = cur.get("sub") or " · ".join([x for x in [r.get("language")] + [t for t in r.get("topics", []) if t != SHOWCASE][:2] if x])
         thumb = f'<a href="{url}"><img src="assets/thumbs/{cur["thumb"]}" width="160" alt="{cur["alt"].replace(chr(34), "&quot;")}"></a><br>' if cur.get("thumb") else ""
         pill = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/status-{k}-dark.svg">'
                 f'<img src="assets/status-{k}-light.svg" width="140" alt="{ch.get(k, ("",))[0]}"></picture>')
         text = cur.get("text") or html.escape(r.get("description") or "")
-        rows.append(f"|  {thumb}**[{title}]({url})**<br><sub>{sub}</sub><br>{pill}  | {text} |")
+        icons = cur.get("icons") or ([(r["language"], LANG_ICON.get(r["language"], ""))] if r.get("language") else [])
+        topics = [t for t in r.get("topics", []) if t != SHOWCASE][:6]
+        right = " ".join(badge(l, g) for l, g in icons)
+        if topics: right += "<br><br>" + " ".join(f"<code>{html.escape(t)}</code>" for t in topics)
+        rows.append(f"|  {thumb}**[{title}]({url})**<br>{pill}  | {text} | {right} |")
     return "\n".join(rows)
 
 
