@@ -63,6 +63,9 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
+- [`storagebits/lukarne`](https://github.com/storagebits/lukarne) · [Lukarne 1.0.1](https://github.com/storagebits/lukarne/commit/a13f93646987470de03d5f7a499df561767a64ef) <sub>yesterday</sub>
+- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Almanak v1.0.0](https://github.com/algotitanhq/almanak/commit/d6aef32cf9cc907caf9fefd74da25aa6556ef6a3) <sub>today</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-20T09:30Z](https://github.com/storagebits/lukarne-catalog/commit/48ffbfd98626082a6651bbc84c57314b9d0f37d1) <sub>today</sub>
 - [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: lighter, without the diagram note, the authorship line and…](https://github.com/algotitanhq/.github/commit/f16da417ef199a4839cce1db8d53c5c71f622fe7) <sub>today</sub>
 - [`storagebits/kronograf`](https://github.com/storagebits/kronograf) · [Toolbox: keep Wi-Fi modem sleep while Bluetooth is on (fixes reboots…](https://github.com/storagebits/kronograf/commit/3e82b01be65432e8db7f3a5c7230f1a6d87da451) <sub>5 days ago</sub>
 <!-- activity:end -->
