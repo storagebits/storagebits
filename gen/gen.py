@@ -289,6 +289,9 @@ def chip(theme, text, live):
 # GitHub description. Order: CURATED order, then the others by last push.
 SHOWCASE = "showcase"
 CURATED = {
+    "algotitanhq/uberblok": dict(icons=[("Astro","astro"),("TypeScript","typescript"),("Three.js","threedotjs"),("OpenZFS","")], title="Uberblok", sub="Astro · TypeScript · Three.js", thumb="uberblok.png",
+        alt="Uberblok: an exploded hard disk beside the uberblock struct and its block tree",
+        text="An interactive museum of ZFS, visited room by room: copy-on-write, transaction groups, RAID-Z, the ARC, the ZIL. Every animation is read from the OpenZFS source. [Visit it](https://uberblok.storagebits.workers.dev)."),
     "storagebits/kronograf": dict(icons=[("ESP32","espressif"),("C","c"),("LVGL",""),("PlatformIO","platformio"),("BLE","bluetooth")], title="Kronograf", sub="ESP32 · C · LVGL", thumb="kronograf.png",
         alt="Kronograf aviator face on the T-Watch",
         text="A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator."),
