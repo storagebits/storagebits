@@ -64,17 +64,17 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
-- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [From algotitanhq/root-redirect-referrer](https://github.com/algotitanhq/uberblok/commit/85cb8214ffa3906a1d43e2ce0f42bf3c703b0ee2) <sub>today</sub>
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-22T09:30Z](https://github.com/storagebits/lukarne-catalog/commit/f62017ef084c11adeeb170f9ad751ae8d09d8c40) <sub>today</sub>
-- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Almanak v1.0.0](https://github.com/algotitanhq/almanak/commit/039bfacf60b5c40c61b8e9c1efebf13bb8052a96) <sub>yesterday</sub>
+- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-205: v1.4 Hall, History and Engine room as a question (PR #11)](https://github.com/algotitanhq/uberblok/commit/ab12010acea131b8c849e26831807750a81ed9ad) <sub>today</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-23T09:26Z](https://github.com/storagebits/lukarne-catalog/commit/de43bd215140efe5a558592de41beccf739e9beb) <sub>today</sub>
+- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [GTFS: reject a non-zip 200 and fall back to the mirror (ALG-176) (#1)](https://github.com/algotitanhq/almanak/commit/8ac4afb7fb45e854e85cf57e69026d646a852807) <sub>today</sub>
 - [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: organization, in the Hermes row too](https://github.com/algotitanhq/.github/commit/90ab50093afc6c619085c726929baabe5a184373) <sub>yesterday</sub>
 <!-- activity:end -->
 
 **Writing.** The stories behind the code are on [blok](https://blok.storagebits.workers.dev), in French, English and Spanish:
 
 <!-- posts:start -->
+- **[A comment on Hacker News, in production four hours later](https://blok.storagebits.workers.dev/blog/boucle-hn/)** <sub>Oct 22, 2026</sub><br/>On October 22, a stranger's suggestion on Hacker News reached production on Uberblok in 4 h 05. I said "go" and approved the merge. Agents did the…
 - **[Uberblok, an OpenZFS museum where every room cites the code](https://blok.storagebits.workers.dev/blog/uberblok/)** <sub>Oct 20, 2026</sub><br/>Uberblok is an interactive museum about OpenZFS in 14 stops: every technical claim points to the exact lines of zfs-2.4.4. Agents built it; I set…
-- **[Testing the NUCLEO-F412ZG with Hubris and Humility](https://blok.storagebits.workers.dev/blog/hubris-f412/)** <sub>Oct 18, 2026</sub><br/>Porting Hubris, Oxide Computer's embedded OS, to a NUCLEO-F412ZG at 100 MHz: what had to change, from the untouched kernel to the two Humility…
 <!-- posts:end -->
 
 <br>
