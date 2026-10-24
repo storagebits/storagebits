@@ -64,10 +64,10 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
-- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-205: v1.4 Hall, History and Engine room as a question (PR #11)](https://github.com/algotitanhq/uberblok/commit/ab12010acea131b8c849e26831807750a81ed9ad) <sub>today</sub>
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-23T09:26Z](https://github.com/storagebits/lukarne-catalog/commit/de43bd215140efe5a558592de41beccf739e9beb) <sub>today</sub>
-- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [GTFS: reject a non-zip 200 and fall back to the mirror (ALG-176) (#1)](https://github.com/algotitanhq/almanak/commit/8ac4afb7fb45e854e85cf57e69026d646a852807) <sub>today</sub>
-- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: organization, in the Hermes row too](https://github.com/algotitanhq/.github/commit/90ab50093afc6c619085c726929baabe5a184373) <sub>yesterday</sub>
+- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [GTFS: reject a non-zip 200 and fall back to the mirror (ALG-176) (#1)](https://github.com/algotitanhq/almanak/commit/8ac4afb7fb45e854e85cf57e69026d646a852807) <sub>yesterday</sub>
+- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>today</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-24T08:57Z](https://github.com/storagebits/lukarne-catalog/commit/4ace9e2fd904d23baee41e628f94dec02afc7055) <sub>today</sub>
+- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: organization, in the Hermes row too](https://github.com/algotitanhq/.github/commit/90ab50093afc6c619085c726929baabe5a184373) <sub>2 days ago</sub>
 <!-- activity:end -->
 
 **Writing.** The stories behind the code are on [blok](https://blok.storagebits.workers.dev), in French, English and Spanish:
