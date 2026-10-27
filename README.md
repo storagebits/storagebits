@@ -64,9 +64,9 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
+- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf row reworded, beta v0.7.0](https://github.com/algotitanhq/.github/commit/cd7dc26efd9e98c325ecb16a345c475c2e529e30) <sub>today</sub>
 - [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>3 days ago</sub>
 - [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-27T09:54Z](https://github.com/storagebits/lukarne-catalog/commit/0a6a095a03ba95dd3ad646478b9afae7792d048e) <sub>today</sub>
-- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf in the projects table, same order as the site](https://github.com/algotitanhq/.github/commit/e429c958ad1be18135be0d876d19e9398cacd52c) <sub>today</sub>
 - [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Merge ALG-221: fix/alg-221-event-text into main](https://github.com/algotitanhq/almanak/commit/8def4745ac7acb6dbe83887c4af1ff5ba961c34a) <sub>3 days ago</sub>
 <!-- activity:end -->
 
