@@ -64,10 +64,10 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-26T10:11Z](https://github.com/storagebits/lukarne-catalog/commit/4c6b58203336c2973c667206bc7821a3456a0f96) <sub>today</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-27T09:54Z](https://github.com/storagebits/lukarne-catalog/commit/0a6a095a03ba95dd3ad646478b9afae7792d048e) <sub>today</sub>
+- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf in the projects table, same order as the site](https://github.com/algotitanhq/.github/commit/e429c958ad1be18135be0d876d19e9398cacd52c) <sub>today</sub>
 - [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Merge ALG-221: fix/alg-221-event-text into main](https://github.com/algotitanhq/almanak/commit/8def4745ac7acb6dbe83887c4af1ff5ba961c34a) <sub>2 days ago</sub>
-- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>2 days ago</sub>
-- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: organization, in the Hermes row too](https://github.com/algotitanhq/.github/commit/90ab50093afc6c619085c726929baabe5a184373) <sub>5 days ago</sub>
+- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>3 days ago</sub>
 <!-- activity:end -->
 
 **Writing.** The stories behind the code are on [blok](https://blok.storagebits.workers.dev), in French, English and Spanish:
