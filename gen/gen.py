@@ -294,7 +294,7 @@ CURATED = {
         text="An interactive museum of ZFS, visited room by room: copy-on-write, transaction groups, RAID-Z, the ARC, the ZIL. Every animation is read from the OpenZFS source. [Visit it](https://uberblok.storagebits.workers.dev)."),
     "storagebits/lukarne": dict(icons=[("Android TV","android"),("Kotlin","kotlin"),("OpenGL ES","opengl")], title="Lukarne", sub="Android TV · Kotlin · OpenGL ES", thumb="lukarne.png",
         alt="Lukarne's night globe of live webcams",
-        text="A window onto the world for Android TV: a night-and-day globe and walls of live webcams, a remote's arrows away. [Read more](https://blok.storagebits.workers.dev/projects/lukarne/)."),
+        text="A window onto the world for Android TV: spin a night-and-day globe with the remote, dive into a region, zap through walls of live webcams. MIT, an APK to sideload. [The project page](https://blok.storagebits.workers.dev/projects/lukarne/)."),
     "storagebits/kronograf": dict(icons=[("ESP32","espressif"),("C","c"),("LVGL",""),("PlatformIO","platformio"),("BLE","bluetooth")], title="Kronograf", sub="ESP32 · C · LVGL", thumb="kronograf.png",
         alt="Kronograf aviator face on the T-Watch",
         text="A from-scratch firmware for the LilyGO T-Watch 2020: aviator chronograph, *Back to the Future* time circuits, iPhone notifications over BLE, live buses, a network toolbox, and a macOS simulator."),
