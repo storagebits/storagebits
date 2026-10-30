@@ -64,11 +64,11 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-29T11:08Z](https://github.com/storagebits/lukarne-catalog/commit/e221c7598b9b74a98959f924101471f74db4fdea) <sub>today</sub>
-- [`algotitanhq/babeltro`](https://github.com/algotitanhq/babeltro) · [Home: drop the &quot;Built by ALGOTITAN&quot; credit line](https://github.com/algotitanhq/babeltro/commit/3dc467629bcb450aa9e10e5df316d812275f6510) <sub>today</sub>
-- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf row reworded, beta v0.7.0](https://github.com/algotitanhq/.github/commit/cd7dc26efd9e98c325ecb16a345c475c2e529e30) <sub>yesterday</sub>
-- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>5 days ago</sub>
-- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Merge ALG-221: fix/alg-221-event-text into main](https://github.com/algotitanhq/almanak/commit/8def4745ac7acb6dbe83887c4af1ff5ba961c34a) <sub>4 days ago</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-30T10:57Z](https://github.com/storagebits/lukarne-catalog/commit/d1f3b7ae31be66e77b70d58186d9250d6a7b2778) <sub>today</sub>
+- [`algotitanhq/babeltro`](https://github.com/algotitanhq/babeltro) · [Home: drop the &quot;Built by ALGOTITAN&quot; credit line](https://github.com/algotitanhq/babeltro/commit/3dc467629bcb450aa9e10e5df316d812275f6510) <sub>yesterday</sub>
+- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf row reworded, beta v0.7.0](https://github.com/algotitanhq/.github/commit/cd7dc26efd9e98c325ecb16a345c475c2e529e30) <sub>2 days ago</sub>
+- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>6 days ago</sub>
+- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Merge ALG-221: fix/alg-221-event-text into main](https://github.com/algotitanhq/almanak/commit/8def4745ac7acb6dbe83887c4af1ff5ba961c34a) <sub>5 days ago</sub>
 <!-- activity:end -->
 
 **Writing.** The stories behind the code are on [blok](https://blok.storagebits.workers.dev), in French, English and Spanish:
