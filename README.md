@@ -64,11 +64,12 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-10-31T10:28Z](https://github.com/storagebits/lukarne-catalog/commit/b3988c20b8e454a2ea5a5a8982bc77061d86a85b) <sub>today</sub>
-- [`algotitanhq/babeltro`](https://github.com/algotitanhq/babeltro) · [Home: drop the &quot;Built by ALGOTITAN&quot; credit line](https://github.com/algotitanhq/babeltro/commit/3dc467629bcb450aa9e10e5df316d812275f6510) <sub>2 days ago</sub>
-- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf row reworded, beta v0.7.0](https://github.com/algotitanhq/.github/commit/cd7dc26efd9e98c325ecb16a345c475c2e529e30) <sub>3 days ago</sub>
-- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>7 days ago</sub>
-- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Merge ALG-221: fix/alg-221-event-text into main](https://github.com/algotitanhq/almanak/commit/8def4745ac7acb6dbe83887c4af1ff5ba961c34a) <sub>6 days ago</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-11-01T11:21Z](https://github.com/storagebits/lukarne-catalog/commit/5742cbbd8e5b7eea2d4aa929c6c71183f4213350) <sub>today</sub>
+- [`algotitanhq/tividrive-auth`](https://github.com/algotitanhq/tividrive-auth) · [Deploy the redirect page after storagebits&#x27;s Go (ALG-324)](https://github.com/algotitanhq/tividrive-auth/commit/099e2213d34b94416b50c938163cfb443dffdaf8) <sub>today</sub>
+- [`algotitanhq/babeltro`](https://github.com/algotitanhq/babeltro) · [Home: drop the &quot;Built by ALGOTITAN&quot; credit line](https://github.com/algotitanhq/babeltro/commit/3dc467629bcb450aa9e10e5df316d812275f6510) <sub>3 days ago</sub>
+- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf row reworded, beta v0.7.0](https://github.com/algotitanhq/.github/commit/cd7dc26efd9e98c325ecb16a345c475c2e529e30) <sub>4 days ago</sub>
+- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [Merge ALG-199: v1.4 ZIL room, question first (ALG-200, PR #17)](https://github.com/algotitanhq/uberblok/commit/fce3786806612b0ff11e959208d7a1a0b2e02969) <sub>8 days ago</sub>
+- [`algotitanhq/almanak`](https://github.com/algotitanhq/almanak) · [Merge ALG-221: fix/alg-221-event-text into main](https://github.com/algotitanhq/almanak/commit/8def4745ac7acb6dbe83887c4af1ff5ba961c34a) <sub>7 days ago</sub>
 <!-- activity:end -->
 
 **Writing.** The stories behind the code are on [blok](https://blok.storagebits.workers.dev), in French, English and Spanish:
