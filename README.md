@@ -65,9 +65,9 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-11-02T12:27Z](https://github.com/storagebits/lukarne-catalog/commit/50f5af07193f13f14b79706878a28b7ecf24b798) <sub>today</sub>
 - [`algotitanhq/spindl`](https://github.com/algotitanhq/spindl) · [From algotitanhq/feat/site-header](https://github.com/algotitanhq/spindl/commit/e6aff4f743c7de00428e72686306e07b24997bc7) <sub>today</sub>
 - [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [From algotitanhq/fix/root-lang-preference-order](https://github.com/algotitanhq/uberblok/commit/2ce1b1edeef093603ec17a3ebd5aa23799a9b201) <sub>today</sub>
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-11-01T11:21Z](https://github.com/storagebits/lukarne-catalog/commit/5742cbbd8e5b7eea2d4aa929c6c71183f4213350) <sub>today</sub>
 - [`algotitanhq/tividrive-auth`](https://github.com/algotitanhq/tividrive-auth) · [Deploy the redirect page after storagebits&#x27;s Go (ALG-324)](https://github.com/algotitanhq/tividrive-auth/commit/099e2213d34b94416b50c938163cfb443dffdaf8) <sub>yesterday</sub>
 - [`algotitanhq/babeltro`](https://github.com/algotitanhq/babeltro) · [Home: drop the &quot;Built by ALGOTITAN&quot; credit line](https://github.com/algotitanhq/babeltro/commit/3dc467629bcb450aa9e10e5df316d812275f6510) <sub>4 days ago</sub>
 - [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Kronograf row reworded, beta v0.7.0](https://github.com/algotitanhq/.github/commit/cd7dc26efd9e98c325ecb16a345c475c2e529e30) <sub>5 days ago</sub>
