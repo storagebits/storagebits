@@ -289,9 +289,9 @@ def chip(theme, text, live):
 # GitHub description. Order: CURATED order, then the others by last push.
 SHOWCASE = "showcase"
 CURATED = {
-    "algotitanhq/spindl": dict(icons=[("Three.js","threedotjs"),("JavaScript","javascript"),("Cloudflare Workers","cloudflareworkers")], title="Spindl", sub="Three.js · JavaScript", thumb="spindl.png",
-        alt="Inside a hard drive seen from above: the arm holds its head over a lit inner track as the target sector comes round",
-        text="A 7,200 rpm hard drive taken apart in the browser: spin-up, a seek drawn live, the rotational wait, the 3 nm flying height, the emergency park. Every gauge reads the model that moves the parts. [Visit it](https://spindl.storagebits.workers.dev)."),
+    "algotitanhq/exploded": dict(icons=[("Three.js","threedotjs"),("JavaScript","javascript"),("Cloudflare Workers","cloudflareworkers")], title="Exploded", sub="Three.js · JavaScript", thumb="exploded.png",
+        alt="A hard drive platter with its head over a lit track beside the two cabinets of a photonic quantum computer behind blue glass",
+        text="Real machines taken apart in the browser, with their real numbers: Spindl, a 7,200 rpm hard drive, and Quantum, a photonic quantum computer modelled on Quandela's Belenos (not affiliated). Every gauge reads the model that moves the parts. [Visit it](https://exploded.storagebits.workers.dev)."),
     "algotitanhq/uberblok": dict(icons=[("Astro","astro"),("TypeScript","typescript"),("Three.js","threedotjs"),("OpenZFS","")], title="Uberblok", sub="Astro · TypeScript · Three.js", thumb="uberblok.png",
         alt="Uberblok: an exploded hard disk beside the uberblock struct and its block tree",
         text="An interactive museum of ZFS, visited room by room: copy-on-write, transaction groups, RAID-Z, the ARC, the ZIL. Every animation is read from the OpenZFS source. [Visit it](https://uberblok.storagebits.workers.dev)."),
