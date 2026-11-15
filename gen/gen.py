@@ -289,6 +289,9 @@ def chip(theme, text, live):
 # GitHub description. Order: CURATED order, then the others by last push.
 SHOWCASE = "showcase"
 CURATED = {
+    "storagebits/microbrawl": dict(icons=[("micro:bit",""),("Raspberry Pi","raspberrypi"),("OpenCV","opencv"),("FastAPI","fastapi")], title="micro:brawl", sub="micro:bit · Raspberry Pi · OpenCV", thumb="microbrawl.png", chip=("ONE-EVENING POC", False),
+        alt="The micro:brawl interface: two robots tracked by their ArUco markers from the ceiling camera",
+        text="Two micro:bit robots play cat and mouse under a ceiling camera, driven from a web page by visitors or by an AI. ArUco markers give position and heading. [The write-up](https://blok.storagebits.workers.dev/blog/microbrawl/)."),
     "algotitanhq/exploded": dict(icons=[("Three.js","threedotjs"),("JavaScript","javascript"),("Cloudflare Workers","cloudflareworkers")], title="Exploded", sub="Three.js · JavaScript", thumb="exploded.png",
         alt="A hard drive platter with its head over a lit track beside the two cabinets of a photonic quantum computer behind blue glass",
         text="Real machines taken apart in the browser, with their real numbers: Spindl, a 7,200 rpm hard drive, and Quantum, a photonic quantum computer modelled on Quandela's Belenos (not affiliated). Every gauge reads the model that moves the parts. [Visit it](https://exploded.storagebits.workers.dev)."),
