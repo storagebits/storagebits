@@ -289,6 +289,9 @@ def chip(theme, text, live):
 # GitHub description. Order: CURATED order, then the others by last push.
 SHOWCASE = "showcase"
 CURATED = {
+    "storagebits/ttlm": dict(icons=[("Gigatron TTL",""),("C","c"),("PyTorch","pytorch"),("Python","python")], title="TTLM", sub="Gigatron TTL · C · PyTorch", thumb="ttlm.png", chip=("WEEKEND POC", False),
+        alt="A real Gigatron's screen: the model as colored noise on top, below it the chat: who are you, i am a tiny model. no cpu. only wires.",
+        text="A language model on a computer with no CPU: a 22k-weight ternary transformer, integer-only, chatting on the Gigatron TTL's 30 logic chips. It plays the 1947 moth. [Talk to it in your browser](https://storagebits.github.io/ttlm/)."),
     "storagebits/microbrawl": dict(icons=[("micro:bit",""),("Raspberry Pi","raspberrypi"),("OpenCV","opencv"),("FastAPI","fastapi")], title="micro:brawl", sub="micro:bit · Raspberry Pi · OpenCV", thumb="microbrawl.png", chip=("ONE-EVENING POC", False),
         alt="The micro:brawl interface: two robots tracked by their ArUco markers from the ceiling camera",
         text="Two micro:bit robots play cat and mouse under a ceiling camera, driven from a web page by visitors or by an AI. ArUco markers give position and heading. [The write-up](https://blok.storagebits.workers.dev/blog/microbrawl/)."),
