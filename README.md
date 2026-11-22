@@ -66,12 +66,12 @@ a kernel on a board nobody ported it to. To keep up with the ideas, I gave them 
 </picture>
 
 <!-- activity:start -->
-- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-11-21T12:43Z](https://github.com/storagebits/lukarne-catalog/commit/24a9875b5cd2e1be9615fd9986e605ddc933c534) <sub>today</sub>
-- [`algotitanhq/exploded`](https://github.com/algotitanhq/exploded) · [From algotitanhq/docs/agents-md](https://github.com/algotitanhq/exploded/commit/c67306ef298bcd513deff8a6a4e9c370de79ecef) <sub>12 days ago</sub>
-- [`algotitanhq/tividrive-auth`](https://github.com/algotitanhq/tividrive-auth) · [Merge ALG-395: privacy policy in English first (alg-395-english-first)](https://github.com/algotitanhq/tividrive-auth/commit/3c3119f5b61a103f9a8993afc3de4b3786086f86) <sub>13 days ago</sub>
-- [`algotitanhq/spindl`](https://github.com/algotitanhq/spindl) · [Redirect the whole site to Spindl in Exploded (301, language kept) (#3)](https://github.com/algotitanhq/spindl/commit/88f7ca5073ae159bb76bd08d7fed645f55491bc8) <sub>17 days ago</sub>
-- [`algotitanhq/.github`](https://github.com/algotitanhq/.github) · [Profile: Exploded in the projects table](https://github.com/algotitanhq/.github/commit/3e2f1961a1e7d00f6720e53750c42c65558cbcea) <sub>18 days ago</sub>
-- [`algotitanhq/uberblok`](https://github.com/algotitanhq/uberblok) · [From algotitanhq/fix/root-lang-preference-order](https://github.com/algotitanhq/uberblok/commit/2ce1b1edeef093603ec17a3ebd5aa23799a9b201) <sub>19 days ago</sub>
+- [`storagebits/lukarne-catalog`](https://github.com/storagebits/lukarne-catalog) · [Catalogue 2026-11-22T12:40Z](https://github.com/storagebits/lukarne-catalog/commit/83c42d8628961d703178f3a963a7a1f1ab662983) <sub>today</sub>
+- [`storagebits/storagebits.github.io`](https://github.com/storagebits/storagebits.github.io) · [Redirect the root to the storagebits site](https://github.com/storagebits/storagebits.github.io/commit/ab5d6a7073c54b5a6796f9ca6ff09de1a6586f68) <sub>today</sub>
+- [`storagebits/ttlm`](https://github.com/storagebits/ttlm) · [The moth flips a coin on close calls, so answers vary; full name…](https://github.com/storagebits/ttlm/commit/8145635e38fab3654901f905c0228a12fcd54e55) <sub>today</sub>
+- [`algotitanhq/exploded`](https://github.com/algotitanhq/exploded) · [From algotitanhq/docs/agents-md](https://github.com/algotitanhq/exploded/commit/c67306ef298bcd513deff8a6a4e9c370de79ecef) <sub>13 days ago</sub>
+- [`algotitanhq/tividrive-auth`](https://github.com/algotitanhq/tividrive-auth) · [Merge ALG-395: privacy policy in English first (alg-395-english-first)](https://github.com/algotitanhq/tividrive-auth/commit/3c3119f5b61a103f9a8993afc3de4b3786086f86) <sub>14 days ago</sub>
+- [`algotitanhq/spindl`](https://github.com/algotitanhq/spindl) · [Redirect the whole site to Spindl in Exploded (301, language kept) (#3)](https://github.com/algotitanhq/spindl/commit/88f7ca5073ae159bb76bd08d7fed645f55491bc8) <sub>18 days ago</sub>
 <!-- activity:end -->
 
 **Writing.** The stories behind the code are on [blok](https://blok.storagebits.workers.dev), in French, English and Spanish:
