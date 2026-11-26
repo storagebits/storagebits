@@ -126,7 +126,13 @@ SKIP_LANGS = {"HTML", "CSS", "CMake", "Makefile", "Dockerfile", "Batchfile", "Pr
 
 
 def stats(now):
-    """Language mix of the public repos of storagebits and algotitanhq, for the hero's linguist bar."""
+    """Language mix for the hero's linguist bar: gen/langs.json (all repos, private included, refreshed by
+    gen/langs.py) when present, else the public repos of storagebits and algotitanhq."""
+    import json, os
+    snap = os.path.join(os.path.dirname(os.path.abspath(__file__)), "langs.json")
+    if os.path.exists(snap):
+        with open(snap) as f:
+            return dict(langs=[tuple(x) for x in json.load(f)["langs"]])
     repos = gh("/users/storagebits/repos?type=owner&per_page=100") + gh("/orgs/algotitanhq/repos?type=public&per_page=100")
     repos = [r for r in repos if not r["private"] and not r["fork"] and not r["archived"] and r["name"] != "storagebits"]
     langs = {}
